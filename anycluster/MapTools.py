@@ -1,8 +1,9 @@
+import math
+import pyproj
+
 from django.contrib.gis.gdal import (
     SpatialReference, CoordTransform, SRSException)
 from django.contrib.gis.geos import Point
-import math
-import pyproj
 
 
 class MapTools():

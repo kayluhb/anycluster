@@ -1,32 +1,8 @@
 from django.http import HttpResponse
 from django.utils import simplejson
 
-from anycluster.MapClusterer import MapClusterer
-from anycluster.scripts import getKmeansClusterEntries
-
-
-def getGrid(request, zoom, gridSize=256):
-
-    clusterer = MapClusterer(zoom, gridSize)
-    clustercells, filters = clusterer.getClusterParameters(request)
-
-    grid = clusterer.gridCluster(clustercells, filters)
-
-    return HttpResponse(simplejson.dumps(
-        grid
-        ), content_type="application/json")
-
-
-def getPins(request, zoom, gridSize=512):
-
-    clusterer = MapClusterer(zoom, gridSize)
-    clustercells, filters = clusterer.getClusterParameters(request)
-
-    markers = clusterer.kmeansCluster(clustercells, filters)
-
-    return HttpResponse(simplejson.dumps(
-        markers
-        ), content_type="application/json")
+from .MapClusterer import MapClusterer
+from .scripts import getKmeansClusterEntries
 
 
 def getBounds(request, srid=4326):
@@ -53,4 +29,28 @@ def getClusterContent(request, zoom, gridSize=512):
 
     return HttpResponse(simplejson.dumps(
         entries
+        ), content_type="application/json")
+
+
+def getGrid(request, zoom, gridSize=256):
+
+    clusterer = MapClusterer(zoom, gridSize)
+    clustercells, filters = clusterer.getClusterParameters(request)
+
+    grid = clusterer.gridCluster(clustercells, filters)
+
+    return HttpResponse(simplejson.dumps(
+        grid
+        ), content_type="application/json")
+
+
+def getPins(request, zoom, gridSize=512):
+
+    clusterer = MapClusterer(zoom, gridSize)
+    clustercells, filters = clusterer.getClusterParameters(request)
+
+    markers = clusterer.kmeansCluster(clustercells, filters)
+
+    return HttpResponse(simplejson.dumps(
+        markers
         ), content_type="application/json")

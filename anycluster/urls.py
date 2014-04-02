@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import patterns, url
-from anycluster import views
 from django.conf import settings
+
+from . import views
 
 urlpatterns = patterns(
     '',
